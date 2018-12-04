@@ -7,19 +7,27 @@ const fs = require('fs')
 
 let input = fs.readFileSync(process.argv[2]).toString('utf8');
 
-function call_times(n, f) {
+function call_times(f, n) {
 	const res = []
-	for (let i = 0; i < n; i++)
-		res.push(f.call(this))
+	if (n === undefined) {
+		for (let p; (p = f.call(this)) !== undefined; ) {
+			res.push(p)
+		}
+	} else {
+		for (let i = 0; i < n; i++)
+			res.push(f.call(this))
+	}
 	return res
 }
 
 
 
 exports.line = function() {
+	if (input.length === 0)
+		return undefined
 	const i = input.indexOf('\n')
-	const line = input.substr(0, i)
-	input = input.substr(i + 1)
+	const line = i >= 0 ? input.substring(0, i) : input
+	input = i >= 0 ? input.substring(i + 1) : ''
 	return line
 }
 
@@ -32,17 +40,18 @@ exports.word = function() {
 }
 
 exports.num = function() {
-	return +exports.word()
+	let w = exports.word()
+	return w === undefined ? undefined : +w
 }
 
 exports.lines = function(n) {
-	return call_times(n, exports.line)
+	return call_times(exports.line, n)
 }
 
 exports.words = function(n) {
-	return call_times(n, exports.word)
+	return call_times(exports.word, n)
 }
 
 exports.nums = function(n) {
-	return call_times(n, exports.num)
+	return call_times(exports.num, n)
 }
