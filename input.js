@@ -41,7 +41,7 @@ exports.word = function() {
 
 exports.num = function() {
 	let w = exports.word()
-	return w === undefined ? undefined : +w
+	return w === undefined ? undefined : parseInt(w)
 }
 
 exports.lines = function(n) {
