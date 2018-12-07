@@ -1,10 +1,8 @@
 /**
  * Adapted from Raymond Ha's code-jam (https://github.com/Shraymonks/code-jam)
  */
-'use strict';
-
+'use strict'
 const fs = require('fs')
-
 let input = fs.readFileSync(process.argv[2]).toString('utf8');
 
 function call_times(f, n) {
