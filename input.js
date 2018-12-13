@@ -5,7 +5,7 @@
 const fs = require('fs')
 let input = fs.readFileSync(process.argv[2]).toString('utf8');
 
-function call_times(f, n) {
+exports.array = function(f, n) {
 	const res = []
 	if (n === undefined) {
 		for (let p; (p = f.call(this)) !== undefined; ) {
@@ -43,13 +43,13 @@ exports.num = function() {
 }
 
 exports.lines = function(n) {
-	return call_times(exports.line, n)
+	return exports.array(exports.line, n)
 }
 
 exports.words = function(n) {
-	return call_times(exports.word, n)
+	return exports.array(exports.word, n)
 }
 
 exports.nums = function(n) {
-	return call_times(exports.num, n)
+	return exports.array(exports.num, n)
 }
